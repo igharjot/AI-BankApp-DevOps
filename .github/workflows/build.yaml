@@ -87,11 +87,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Test AWS STS Connectivity
+        run: |
+          echo "AWS Region: ${{ secrets.AWS_REGION }}"
+          getent hosts sts.amazonaws.com || true
+          getent hosts sts.${{ secrets.AWS_REGION }}.amazonaws.com || true
+
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
+        env:
+          AWS_STS_REGIONAL_ENDPOINTS: regional
 
       - name: Login to Amazon ECR
         id: login-ecr
