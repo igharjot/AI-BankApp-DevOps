@@ -93,6 +93,11 @@ jobs:
           getent hosts sts.amazonaws.com || true
           getent hosts sts.${{ secrets.AWS_REGION }}.amazonaws.com || true
 
+      - name: Debug OIDC
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: sts.amazonaws.com
+
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
