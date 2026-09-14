@@ -83,11 +83,16 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Get Date
+        id: get-date
+        run: echo "date=$(date -u '+%Y-%U')" >> $GITHUB_OUTPUT
+        shell: bash
+
       - name: Cache OWASP NVD Database
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository/org/owasp/dependency-check-data
-          key: owasp-nvd-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          key: owasp-nvd-${{ runner.os }}-${{ steps.get-date.outputs.date }}
           restore-keys: |
             owasp-nvd-${{ runner.os }}-
 
