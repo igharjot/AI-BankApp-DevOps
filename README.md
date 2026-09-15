@@ -319,8 +319,5 @@ All scan reports (OWASP, Trivy, ZAP) are uploaded as downloadable **Artifacts** 
 
 <div align="center">
 
-Happy Learning
-
-**TrainWithShubham**  
 
 </div>
